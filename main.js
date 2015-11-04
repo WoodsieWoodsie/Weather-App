@@ -18,6 +18,7 @@ function init() {
       .done(function(data){
         console.log("user zip conditions", data.current_observation)
         var current = data.current_observation;
+        var $title = $('<p>').text('Current Weather').addClass('title');
         var icon = current.icon_url;
         var $userLocation = $('<p>').text(current.display_location.full);
         var $userCurrentIcon = $('<img>').attr('src', icon);
@@ -26,7 +27,7 @@ function init() {
         var $feelslike_f = $('<p>').text(current.feelslike_f + ' degrees fahrenheit');
         var $observation_time = $('<p>').text(current.observation_time);
 
-        $('#userCurrent').empty().append($userCurrentIcon, $userLocation, $weather, $temp_f, $feelslike_f, $observation_time);
+        $('#userCurrent').empty().append($title, $userCurrentIcon, $userLocation, $weather, $temp_f, $feelslike_f, $observation_time);
       })
       .fail(function(error){
         console.error(error);
@@ -57,20 +58,21 @@ function getWeather() {
     console.log("data", data);
     // GET CURRENT CONDITIONS FOR SEARCHED ZIP CODE
     var zipCurrent = data.current_observation;
+    var $title = $('<p>').text('Today').addClass('title');
     var $zipLocation = $('<p>').text(zipCurrent.display_location.full);
     var $zipIcon = $('<img>').attr('src', zipCurrent.icon_url);
     var $zipWeather = $('<p>').text(zipCurrent.weather);
-    var $zipTemp_f = $('<p>').text(zipCurrent.temp_f);
-    var $zipFeelslike_f = $('<p>').text(zipCurrent.feelslike_f);
+    var $zipTemp_f = $('<p>').text(zipCurrent.temp_f + ' degrees fahrenheit');
+    var $zipFeelslike_f = $('<p>').text(zipCurrent.feelslike_f + ' degrees fahrenheit');
     var $zipObservation_time = $('<p>').text(zipCurrent.observation_time);
-    $('#userCurrent').empty().append($zipIcon, $zipLocation, $zipWeather, $zipTemp_f, $zipFeelslike_f, $zipObservation_time);
+    $('#userCurrent').empty().append($title, $zipIcon, $zipLocation, $zipWeather, $zipTemp_f, $zipFeelslike_f, $zipObservation_time);
     // GET FORECAST FOR SEARCHED ZIP CODE
     $.get(apiUrl + '/forecast/q/' + $zip + '.json')
     .done(function(data){
       console.log("user zip forecast data", data);
       var forecastData = data.forecast;
       console.log("forecast data", forecastData);
-      var $weekdayOneTitle = $('<p>').text(forecastData.txt_forecast.forecastday[2].title);
+      var $weekdayOneTitle = $('<p>').text(forecastData.txt_forecast.forecastday[2].title).addClass('title');
       var $weekdayOneIcon = $('<img>').attr('src', forecastData.txt_forecast.forecastday[2].icon_url);
       var $weekdayOneHigh = $('<p>').text('High: ' + forecastData.simpleforecast.forecastday[0].high.fahrenheit + ' degrees fahrenheit');
       var $weekdayOneLow = $('<p>').text('Low: ' + forecastData.simpleforecast.forecastday[0].low.fahrenheit + ' degrees fahrenheit');
@@ -78,7 +80,7 @@ function getWeather() {
       // var $weekdayOneDiv = $('<div>').attr('id', 'weekdayOneDiv');
       $('#weekdayOneDiv').show().append($weekdayOneTitle, $weekdayOneIcon, $weekdayOneHigh, $weekdayOneLow, $weekdayOneSummary);
       
-      var $weekdayTwoTitle = $('<p>').text(forecastData.txt_forecast.forecastday[4].title);
+      var $weekdayTwoTitle = $('<p>').text(forecastData.txt_forecast.forecastday[4].title).addClass('title');
       var $weekdayTwoIcon = $('<img>').attr('src', forecastData.txt_forecast.forecastday[4].icon_url);
       var $weekdayTwoHigh = $('<p>').text('High: ' + forecastData.simpleforecast.forecastday[1].high.fahrenheit + ' degrees fahrenheit');
       var $weekdayTwoLow = $('<p>').text('Low: ' + forecastData.simpleforecast.forecastday[1].low.fahrenheit + ' degrees fahrenheit');
@@ -86,13 +88,13 @@ function getWeather() {
       // var $weekdayTwoDiv = $('<div>').attr('id', 'weekdayTwoDiv');
       $('#weekdayTwoDiv').show().append($weekdayTwoTitle, $weekdayTwoIcon, $weekdayTwoHigh, $weekdayTwoLow, $weekdayTwoSummary);
       
-      var $weekdayThreeTitle = $('<p>').text(forecastData.txt_forecast.forecastday[6].title);
+      var $weekdayThreeTitle = $('<p>').text(forecastData.txt_forecast.forecastday[6].title).addClass('title');
       var $weekdayThreeIcon = $('<img>').attr('src', forecastData.txt_forecast.forecastday[6].icon_url);
       var $weekdayThreeHigh = $('<p>').text('High: ' + forecastData.simpleforecast.forecastday[2].high.fahrenheit + ' degrees fahrenheit');
       var $weekdayThreeLow = $('<p>').text('Low: ' + forecastData.simpleforecast.forecastday[2].low.fahrenheit + ' degrees fahrenheit');
       var $weekdayThreeSummary = $('<p>').text(forecastData.txt_forecast.forecastday[6].fcttext);
       // var $weekdayThreeDiv = $('<div>').attr('id', 'weekdayThreeDiv');
-      $('weekdayThreeDiv').show().append($weekdayThreeTitle, $weekdayThreeIcon, $weekdayThreeHigh, $weekdayThreeLow, $weekdayThreeSummary);
+      $('#weekdayThreeDiv').show().append($weekdayThreeTitle, $weekdayThreeIcon, $weekdayThreeHigh, $weekdayThreeLow, $weekdayThreeSummary);
 
       // var $weekdayForecastDiv = $('<div>').attr('id', 'weekdayForecastDiv');
       // $('#weekdayForecastDiv').append($weekdayOneDiv, $weekdayTwoDiv, $weekdayThreeDiv);
