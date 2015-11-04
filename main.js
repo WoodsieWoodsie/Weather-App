@@ -54,6 +54,7 @@ function getWeather() {
   $.get(zipUrl)
   .done(function(data){
     console.log("data", data);
+    // GET CURRENT CONDITIONS FOR SEARCHED ZIP CODE
     var zipCurrent = data.current_observation;
     var $zipLocation = $('<p>').text(zipCurrent.display_location.full);
     var $zipIcon = $('<img>').attr('src', zipCurrent.icon_url);
@@ -62,7 +63,35 @@ function getWeather() {
     var $zipFeelslike_f = $('<p>').text(zipCurrent.feelslike_f);
     var $zipObservation_time = $('<p>').text(zipCurrent.observation_time);
     $('#userCurrent').empty().append($zipIcon, $zipLocation, $zipWeather, $zipTemp_f, $zipFeelslike_f, $zipObservation_time);
-
+    // GET FORECAST FOR SEARCHED ZIP CODE
+    $.get(apiUrl + '/forecast/q/' + $zip + '.json')
+    .done(function(data){
+      console.log("user zip forecast data", data);
+      var forecastData = data.forecast;
+      console.log("forecast data", forecastData);
+      var $weekdayOneTitle = $('<p>').text(forecastData.txt_forecast.forecastday[2].title);
+      var $weekdayOneIcon = $('<img>').attr('src', forecastData.txt_forecast.forecastday[2].icon_url);
+      var $weekdayOneHigh = $('<p>').text(forecastData.simpleforecast.forecastday[0].high.fahrenheit);
+      var $weekdayOneLow = $('<p>').text(forecastData.simpleforecast.forecastday[0].low.fahrenheit);
+      var $weekdayOneSummary = $('<p>').text(forecastData.txt_forecast.forecastday[2].fcttext);
+      
+      
+      var $weekdayTwoTitle = $('<p>').text(forecastData.txt_forecast.forecastday[4].title);
+      var $weekdayTwoIcon = $('<img>').attr('src', forecastData.txt_forecast.forecastday[4].icon_url);
+      var $weekdayTwoHigh = $('<p>').text(forecastData.simpleforecast.forecastday[1].high.fahrenheit);
+      var $weekdayTwoLow = $('<p>').text(forecastData.simpleforecast.forecastday[1].low.fahrenheit);
+      var $weekdayTwoSummary = $('<p>').text(forecastData.txt_forecast.forecastday[4].fcttext);
+      
+      
+      var $weekdayThreeTitle = $('<p>').text(forecastData.txt_forecast.forecastday[6].title);
+      var $weekdayThreeIcon = $('<img>').attr('src', forecastData.txt_forecast.forecastday[6].icon_url);
+      var $weekdayThreeHigh = $('<p>').text(forecastData.simpleforecast.forecastday[2].high.fahrenheit);
+      var $weekdayThreeLow = $('<p>').text(forecastData.simpleforecast.forecastday[2].low.fahrenheit);
+      var $weekdayThreeSummary = $('<p>').text(forecastData.txt_forecast.forecastday[6].fcttext);
+    })
+    .fail(function(error){
+      console.error(error);
+    })
   })
   .fail(function(error){
     console.error(error);
