@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.5/flatly/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  
+  <div class="container">
+    <div class="row">
+      <h1>What's the Weather?</h1>
+    </div>
+  
+    <div class="row">
+      <label for="zipCodeInput">Zip code: </label>
+      <input type="number" id="zipInput" min="00000" max="99999" value="94040">
+      <button id="getWeather" class="btn btn-xs">Get Weather</button>
+    </div>
+
+    <div class="row">
+      <div id='userCurrent'></div>
+    </div>
+
+
+
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
