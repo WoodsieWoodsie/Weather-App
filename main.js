@@ -25,7 +25,8 @@ function init() {
         var $temp_f = $('<p>').text(current.temp_f);
         var $feelslike_f = $('<p>').text(current.feelslike_f);
         var $observation_time = $('<p>').text(current.observation_time);
-        $('#userCurrent').append($userCurrentIcon, $userLocation, $weather, $temp_f, $feelslike_f, $observation_time);
+        // $('<div>').attr('id', 'userCurrent');
+        $('#userCurrent').empty().append($userCurrentIcon, $userLocation, $weather, $temp_f, $feelslike_f, $observation_time);
       })
       .fail(function(error){
         console.error(error);
@@ -71,23 +72,30 @@ function getWeather() {
       console.log("forecast data", forecastData);
       var $weekdayOneTitle = $('<p>').text(forecastData.txt_forecast.forecastday[2].title);
       var $weekdayOneIcon = $('<img>').attr('src', forecastData.txt_forecast.forecastday[2].icon_url);
-      var $weekdayOneHigh = $('<p>').text(forecastData.simpleforecast.forecastday[0].high.fahrenheit);
-      var $weekdayOneLow = $('<p>').text(forecastData.simpleforecast.forecastday[0].low.fahrenheit);
+      var $weekdayOneHigh = $('<p>').text('High: ' + forecastData.simpleforecast.forecastday[0].high.fahrenheit + ' degrees fahrenheit');
+      var $weekdayOneLow = $('<p>').text('Low: ' + forecastData.simpleforecast.forecastday[0].low.fahrenheit + ' degrees fahrenheit');
       var $weekdayOneSummary = $('<p>').text(forecastData.txt_forecast.forecastday[2].fcttext);
-      
+      var $weekdayOneDiv = $('<div>').attr('id', 'weekdayOneDiv');
+      $weekdayOneDiv.append($weekdayOneTitle, $weekdayOneIcon, $weekdayOneHigh, $weekdayOneLow, $weekdayOneSummary);
       
       var $weekdayTwoTitle = $('<p>').text(forecastData.txt_forecast.forecastday[4].title);
       var $weekdayTwoIcon = $('<img>').attr('src', forecastData.txt_forecast.forecastday[4].icon_url);
-      var $weekdayTwoHigh = $('<p>').text(forecastData.simpleforecast.forecastday[1].high.fahrenheit);
-      var $weekdayTwoLow = $('<p>').text(forecastData.simpleforecast.forecastday[1].low.fahrenheit);
+      var $weekdayTwoHigh = $('<p>').text('High: ' + forecastData.simpleforecast.forecastday[1].high.fahrenheit + ' degrees fahrenheit');
+      var $weekdayTwoLow = $('<p>').text('Low: ' + forecastData.simpleforecast.forecastday[1].low.fahrenheit + ' degrees fahrenheit');
       var $weekdayTwoSummary = $('<p>').text(forecastData.txt_forecast.forecastday[4].fcttext);
-      
+      var $weekdayTwoDiv = $('<div>').attr('id', 'weekdayTwoDiv');
+      $weekdayTwoDiv.append($weekdayTwoTitle, $weekdayTwoIcon, $weekdayTwoHigh, $weekdayTwoLow, $weekdayTwoSummary);
       
       var $weekdayThreeTitle = $('<p>').text(forecastData.txt_forecast.forecastday[6].title);
       var $weekdayThreeIcon = $('<img>').attr('src', forecastData.txt_forecast.forecastday[6].icon_url);
-      var $weekdayThreeHigh = $('<p>').text(forecastData.simpleforecast.forecastday[2].high.fahrenheit);
-      var $weekdayThreeLow = $('<p>').text(forecastData.simpleforecast.forecastday[2].low.fahrenheit);
+      var $weekdayThreeHigh = $('<p>').text('High: ' + forecastData.simpleforecast.forecastday[2].high.fahrenheit + ' degrees fahrenheit');
+      var $weekdayThreeLow = $('<p>').text('Low: ' + forecastData.simpleforecast.forecastday[2].low.fahrenheit + 'degrees fahrenheit');
       var $weekdayThreeSummary = $('<p>').text(forecastData.txt_forecast.forecastday[6].fcttext);
+      var $weekdayThreeDiv = $('<div>').attr('id', 'weekdayThreeDiv');
+      $weekdayThreeDiv.append($weekdayThreeTitle, $weekdayThreeIcon, $weekdayThreeHigh, $weekdayThreeLow, $weekdayThreeSummary);
+
+      // var $weekdayForecastDiv = $('<div>').attr('id', 'weekdayForecastDiv');
+      $('#weekdayForecastDiv').append($weekdayOneDiv, $weekdayTwoDiv, $weekdayThreeDiv);
     })
     .fail(function(error){
       console.error(error);
